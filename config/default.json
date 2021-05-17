@@ -1,0 +1,4 @@
+{
+  "mongoURI": "mongodb+srv://moses23:!!akswhr23@samyangfoods.izcve.mongodb.net/contact-keeper?retryWrites=true&w=majority",
+  "jwtSecret": "bongbong"
+}
