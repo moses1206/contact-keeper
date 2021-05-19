@@ -1,10 +1,21 @@
-import React, { useState, useContext } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import AlertContext from "../../context/alert/alertContext";
+import AuthContext from "../../context/auth/authContext";
 
 const Register = () => {
   const alertContext = useContext(AlertContext);
+  const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
+
+  const { regitser, error, clearErrors } = authContext;
+
+  useEffect(() => {
+    if (error === "아이디가 존재합니다. 다른 아이디를 입력해주세요!!") {
+      setAlert(error, "danger");
+      clearErrors();
+    }
+  }, [error]);
 
   const [user, setUser] = useState({
     username: "",
@@ -29,7 +40,11 @@ const Register = () => {
     } else if (password !== password2) {
       setAlert("패스워드가 일치하지 않습니다.!!", "danger");
     } else {
-      console.log("Register Submit");
+      regitser({
+        username,
+        userid,
+        password,
+      });
     }
   };
 
