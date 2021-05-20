@@ -2,20 +2,23 @@ import React, { useState, useContext, useEffect } from "react";
 import AlertContext from "../../context/alert/alertContext";
 import AuthContext from "../../context/auth/authContext";
 
-const Register = () => {
+const Register = (props) => {
   const alertContext = useContext(AlertContext);
   const authContext = useContext(AuthContext);
 
   const { setAlert } = alertContext;
-
-  const { regitser, error, clearErrors } = authContext;
+  const { regitser, error, clearErrors, isAuthenticated } = authContext;
 
   useEffect(() => {
+    if (isAuthenticated) {
+      props.history.push("/");
+    }
     if (error === "아이디가 존재합니다. 다른 아이디를 입력해주세요!!") {
       setAlert(error, "danger");
       clearErrors();
     }
-  }, [error]);
+    // eslint-disable-next-line
+  }, [error, isAuthenticated, props.history]);
 
   const [user, setUser] = useState({
     username: "",

@@ -15,7 +15,7 @@ router.get("/", auth, async (req, res) => {
       date: -1,
     });
 
-    res.json({ contacts });
+    res.json(contacts);
   } catch (err) {
     console.error(err.message);
     res.status(500).send("서버에러!!");
@@ -35,12 +35,12 @@ router.post(
       return res.status(400).json({ errors: errors.array() });
     }
 
-    const { username, userid, phone, type } = req.body;
+    const { username, email, phone, type } = req.body;
 
     try {
       const newContact = new Contact({
         username,
-        userid,
+        email,
         phone,
         type,
         user: req.user.id,
